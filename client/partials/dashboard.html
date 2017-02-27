@@ -1,0 +1,28 @@
+<!-- Ekapob Ukritnukun
+ThaiGQ@gmail.com
+February 24, 2017
+Track: MEAN
+Belt Exam -->
+
+<h1>Logged in as: {{currentUser}}</h1>
+
+<a href="#!/new"> New Poll </a>
+
+<button type="button" ng-click="logout()"> Logout </button>
+
+<h3> Current polls: </h3>
+
+<table>
+    <tr>
+        <th> Created By </th>
+        <th> Survey Question </th>
+        <th> Date Posted </th>
+        <th> Action </th>
+    </tr>
+    <tr ng-repeat = "poll in polls">
+        <td>{{poll._user.name}}</td>
+        <td><a href="#!/show/{{poll._id}}">{{poll.question}}</a></td>
+        <td>{{poll.createdAt}}</td>
+        <td ng-show = "{{currentUser}} === {{poll._user.name}}"> <button type="button" ng-click="delete(poll._id)"> Delete </button> </td>
+    </tr>
+</table>

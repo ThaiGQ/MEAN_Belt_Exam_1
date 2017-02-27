@@ -1,0 +1,23 @@
+<!-- Ekapob Ukritnukun
+ThaiGQ@gmail.com
+February 24, 2017
+Track: MEAN
+Belt Exam -->
+
+<h1> What is your Quest?! </h1>
+
+<form>
+    <label for=""> Question: <input type="text" ng-model = "newPoll.question"> </label>
+    <label for=""> Option 1: <input type="text" ng-model = "newPoll.option1"> </label>
+    <label for=""> Option 2: <input type="text" ng-model = "newPoll.option2"> </label>
+    <label for=""> Option 3: <input type="text" ng-model = "newPoll.option3"> </label>
+    <label for=""> Option 4: <input type="text" ng-model = "newPoll.option4"> </label>
+    <input type="submit" value = 'Create Poll' ng-click = "create()">
+</form>
+
+<div class="" ng-show="data.err">
+    <h1>Error!</h1>
+    <p ng-repeat = "info in data.err.errors"> {{info.message}} </p>
+    <p> {{errors.errmsg}} </p>
+</div>
+<a href = "#!/dashboard/:name"> Home </a>

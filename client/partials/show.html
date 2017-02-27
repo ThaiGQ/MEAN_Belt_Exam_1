@@ -1,0 +1,33 @@
+
+<h1>{{poll.question}}</h1>
+
+<p>Click the Vote button to choose an option</p>
+
+<table>
+    <tr>
+        <td>Option</td>
+        <td>Current Number of Votes</td>
+        <td>Action</td>
+    </tr>
+    <tr>
+        <td>{{poll.option1}}</td>
+        <td>{{poll.votes1}}</td>
+        <td><button type="button" ng-click="vote(poll._id, poll.votes1)"> Vote </button></td>
+    </tr>
+    <tr>
+        <td>{{poll.option2}}</td>
+        <td>{{poll.votes2}}</td>
+        <td><button type="button" ng-click="vote(poll._id, poll.votes2)"> Vote </button></td>
+    </tr>
+    <tr>
+        <td>{{poll.option3}}</td>
+        <td>{{poll.votes3}}</td>
+        <td><button type="button" ng-click="vote(poll._id, poll.votes3)"> Vote </button></td>
+    </tr>
+    <tr>
+        <td>{{poll.option4}}</td>
+        <td>{{poll.votes4}}</td>
+        <td><button type="button" ng-click="vote(poll._id, poll.votes4)"> Vote </button></td>
+    </tr>
+</table>
+<a href = "#!/dashboard/{{currentUser}}"> Home </a>
