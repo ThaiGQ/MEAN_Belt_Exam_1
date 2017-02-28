@@ -12,6 +12,18 @@ var User = mongoose.model("User")
 
 
 module.exports = {
+    all_polls: function(req, res) {
+
+        Poll.find({}).populate("_user").exec(function(err, polls) {
+            console.log("populate _user:", polls);
+            if (err) {
+                console.log("Danger! Danger! Imminent Warp Core breach detected!" + err);
+            }
+            console.log("polls.js all_polls:", polls);
+            res.json({polls:polls});
+        })
+    },
+
     create: function(req, res){
         console.log(req.params);
         User.findOne({name: req.body._user}, function(err, user){
@@ -49,7 +61,7 @@ module.exports = {
         console.log("polls.js show req.body:", req.params);
         Poll.findOne({_id: req.params.id}, function(err, poll) {
             console.log("polls.js show:", req.params.id);
-            console.log("polls.js show:", poll.poll);
+            console.log("polls.js show:", poll);
             if (err) {
                 console.log("Danger! Danger! Iminent Warp Core breach detected!");
                 console.log("users.js show:", err)
@@ -58,15 +70,44 @@ module.exports = {
         })
     },
 
-    all_polls: function(req, res) {
-
-        Poll.find({}).populate("_user").exec(function(err, polls) {
-            console.log("populate _user:", polls);
+    vote: function (req, res) {
+        console.log("polls.js vote req.params", req.params);
+        console.log("polls.js vote req.body", req.body);
+        Poll.findOne({_id: req.params.id}, function(err, poll) {
+            console.log("polls.js vote:", req.body.option);
+            console.log("polls.js vote:", poll);
             if (err) {
-                console.log("Danger! Danger! Imminent Warp Core breach detected!" + err);
+                console.log("Danger! Danger! Iminent Warp Core breach detected!");
+                console.log("users.js show:", err)
             }
-            console.log("users.js all_polls:", polls);
-            res.json({polls:polls});
+            if (poll) {
+                switch (req.body.option) {
+                    case "option_1":
+                        poll.votes1 += 1;
+                        break;
+                    case "option_2":
+                        poll.votes2 += 1;
+                        break;
+                    case "option_3":
+                        poll.votes3 += 1;
+                        break;
+                    case "option_4":
+                        poll.votes4 += 1;
+                        break;
+                }
+                poll.save(function(err, poll) {
+                    if(err) {
+                        console.log('Unable to update new vote!' + err);
+                        res.json({err:err})
+                    }
+                    else {
+                        console.log('Vote tallied!');
+                        console.log(poll);
+                        res.json({poll:poll});
+                    }
+                    console.log("Server/Controllers/polls.js - vote:", poll);
+                })
+            }
         })
     },
 

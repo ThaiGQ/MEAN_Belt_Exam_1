@@ -4,13 +4,15 @@ February 24, 2017
 Track: MEAN
 Belt Exam -->
 
-<h1>Logged in as: {{currentUser}}</h1>
+<h1>Logged in as: {{currentUser}} </h1>
 
 <a href="#!/new"> New Poll </a>
 
 <button type="button" ng-click="logout()"> Logout </button>
 
 <h3> Current polls: </h3>
+
+<label> Search Polls <input type="text" ng-model="search"> </label>
 
 <table>
     <tr>
@@ -19,10 +21,21 @@ Belt Exam -->
         <th> Date Posted </th>
         <th> Action </th>
     </tr>
-    <tr ng-repeat = "poll in polls">
+    <tr ng-repeat = "poll in polls | filter : search">
         <td>{{poll._user.name}}</td>
         <td><a href="#!/show/{{poll._id}}">{{poll.question}}</a></td>
-        <td>{{poll.createdAt}}</td>
-        <td ng-show = "{{currentUser}} === {{poll._user.name}}"> <button type="button" ng-click="delete(poll._id)"> Delete </button> </td>
+        <td>{{poll.createdAt | date:"MMMM-dd-yyyy"}}</td>
+        <td ng-if = "currentUser == poll._user.name"> <button type="button" ng-click="delete(poll._id)"> Delete </button> </td>
     </tr>
 </table>
+
+<!-- Table below displays all users in database -->
+<!-- <table>
+    <tr>
+        <td> User ID </td>
+        <td> User Name </td>
+    </tr>
+    <tr ng-repeat = "user in users">
+        <td> {{user._id}} </td>
+        <td> {{user.name}} </td>
+</table> -->

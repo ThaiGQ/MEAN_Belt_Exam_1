@@ -3,6 +3,7 @@ console.log("successController");
 app.controller('showController', ['$scope', "$cookies", '$location', '$routeParams', 'pollFactory', function($scope, $cookies, $location, rParams, pollFactory) {
 
     $scope.currentUser = $cookies.get("session")
+    console.log("showController currentUser: ", $scope.currentUser);
 
     $scope.getPoll = function() {
         console.log("showController getPoll:", rParams.id);
@@ -12,10 +13,13 @@ app.controller('showController', ['$scope', "$cookies", '$location', '$routePara
         })
     }
 
-    $scope.vote = function(vote_id) {
-        console.log("showController getPoll:");
-        pollFactory.update( function (vote_id) {
-            
+    $scope.vote = function(option) {
+        var vote = {
+            option: option
+        }
+        console.log("showController $scope.option: ", vote);
+        pollFactory.vote($scope.poll._id, vote, function () {
+            $scope.getPoll();
         })
     }
 

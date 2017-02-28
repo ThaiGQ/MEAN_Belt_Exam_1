@@ -27,6 +27,14 @@ app.factory('userFactory', ["$http", function($http) {
         })
     };
 
+    factory.all_users = function(callback) {
+        $http.get("/users").then(function (data) {
+            console.log("userFactory.all_users:", data);
+            if (typeof(callback) === 'function') {
+                callback(data.data.users);
+            }
+        })
+    };
 
     return factory;
 }]);

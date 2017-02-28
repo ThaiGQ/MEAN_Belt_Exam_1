@@ -19,7 +19,7 @@ app.factory('pollFactory', ["$http", function($http) {
     };
 
     factory.all_polls = function(callback) {
-        $http.get("/dashboard/").then(function (data) {
+        $http.get("/dashboard").then(function (data) {
             console.log("pollFactory.all_polls:", data.data.polls);
             if (typeof(callback) === 'function') {
                 callback(data.data.polls);
@@ -37,10 +37,10 @@ app.factory('pollFactory', ["$http", function($http) {
         })
     };
 
-    factory.update = function(id, votedFor, callback) {
-        console.log("pollFactory.update:", id, votedFor);
-        $http.delete("/delete/" + id).then(function (data) {
-            console.log("pollFactory.delete:", data);
+    factory.vote = function(poll_id, vote, callback) {
+        console.log("pollFactory.vote:", poll_id, vote);
+        $http.put("/vote/" + poll_id, vote).then(function (data) {
+            console.log("pollFactory.vote:", data);
             if (typeof(callback) === 'function') {
                 callback(data.data);
             }

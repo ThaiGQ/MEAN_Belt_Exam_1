@@ -53,13 +53,15 @@ module.exports = {
         })
     },
 
-    // all_polls: function(req, res) {
-    //     User.find({}, function(err, users) {
-    //         if (err) {
-    //             console.log("Danger! Danger! Iminent Warp Core breach detected!" + err);
-    //         }
-    //         console.log("users.js all_polls:", users);
-    //         res.json({users:users});
-    //     })
-    // },
+    all_users: function(req, res) {
+        console.log("**************************************************");
+        console.log("Finding all users");
+        User.find({}, function(err, users) {
+            if (err) {
+                console.log("Danger! Danger! Iminent Warp Core breach detected!" + err);
+            }
+            console.log("users.js all_users:", users);
+            res.json({users:users});
+        })
+    },
 }

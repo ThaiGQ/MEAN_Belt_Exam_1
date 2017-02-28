@@ -6,7 +6,8 @@
 
 console.log("loginController");
 
-app.controller('loginController', ['$scope', "$location", 'userFactory', function($scope, $location, userFactory) {
+app.controller('loginController', ['$scope', "$location", "$cookies", 'userFactory', function($scope, $location, $cookies, userFactory) {
+    console.log("loginController - cookies:", $cookies.get("session"))
 
     $scope.login = function(){
         userFactory.login($scope.user, function (data) {
@@ -19,8 +20,9 @@ app.controller('loginController', ['$scope', "$location", 'userFactory', functio
                 $scope.flag = true;
             }
             else {
-                console.log("loginController - success:", $scope.data.user.name);
-                $location.url("/dashboard/" + $scope.data.user.name)
+                console.log("loginController - success:", data.user.name);
+                $cookies.put('session', data.user.name);
+                $location.url("/dashboard/" + data.user.name)
             }
             console.log("loginController flag:", $scope.flag);
             $scope.user = {};

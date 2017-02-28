@@ -6,11 +6,14 @@
 
 console.log("successController");
 
-app.controller('dashboardController', ['$scope', "$cookies", '$location', '$routeParams', 'pollFactory', "userFactory", function($scope, $cookies, $location, rParams, pollFactory, userFactory) {
-    console.log("dashboardController:", rParams);
-    $cookies.put('session', rParams.name);
-    $scope.currentUser = $cookies.get("session")
-    console.log("currentUser:", $scope.currentUser);
+app.controller('dashboardController', ['$scope', "$cookies", '$location', "$window", '$routeParams', 'pollFactory', "userFactory", function($scope, $cookies, $location, $window, rParams, pollFactory, userFactory) {
+    console.log("HEYOOOO", $cookies.get("session"))
+    if (!$cookies.get("session")) {
+        $location.url("/login")
+    }
+    console.log("dashboardController rParams:", rParams);
+    $scope.currentUser = $cookies.get("session");
+    console.log("dashboardController currentUser:", $scope.currentUser);
 
     $scope.getUser = function() {
         console.log("dashboardController getUser:", rParams.name);
@@ -35,6 +38,7 @@ app.controller('dashboardController', ['$scope', "$cookies", '$location', '$rout
     }
 
     $scope.logout = function () {
+        $window.localStorage.clear();
         $cookies.remove("session");
         $location.url("/login")
     }
@@ -42,4 +46,15 @@ app.controller('dashboardController', ['$scope', "$cookies", '$location', '$rout
     $scope.getUser();
     $scope.all_polls();
     // console.log("successController object:", $scope.getUser);
+
+    // Code below used to check user database only
+    // $scope.all_users = function() {
+    //     console.log("dashboardController all_users before:");
+    //     userFactory.all_users(function (users) {
+    //         console.log("dashboardController all_users:", users);
+    //         $scope.users = users;
+    //     })
+    // }
+    //
+    // $scope.all_users();
 }]);
